@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <title>Checklist de Resposta a Incidentes</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Roboto', sans-serif;
+      font-size: 12px;
+      margin: 0;
+      padding: 20px;
+      background: #fff;
+      color: #000000;
+      line-height: 1.5;
+    }
+    .page {
+      max-width: 900px;
+      margin: auto;
+    }
+    h1, h2 {
+      color: #fff;
+      background: #666666;
+      border-radius: 4px;
+      margin-top: 20px;
+      margin-bottom: 12px;
+    }
+    h1 {
+      font-size: 15px;    /* título um pouco menor */
+      padding: 8px 14px;
+    }
+    h2 {
+      font-size: 14px;    /* subtítulo menor */
+      padding: 7px 12px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 20px;
+    }
+    th, td {
+      border: 1px solid #ccc;
+      padding: 8px;
+      vertical-align: top;
+    }
+    th {
+      background: #b1b0b0;
+      text-align: left;
+      font-weight: 700;
+    }
+    td.etapa {
+      background: #e4e3e3;  /* cinza mais claro */
+      font-weight: 700;      /* negrito */
+    }
+    label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    input[type=checkbox] {
+      width: 18px;     /* caixa maior */
+      height: 18px;    /* caixa maior */
+    }
+    .critico-numero::before {
+      content: "🔴";
+      font-size: 0.8em;   /* bolinha menor */
+      margin-right: 4px;
+      vertical-align: middle;
+    }
+    .condicional {
+      background: #cecece;
+      font-weight: 700;
+      text-align: center;
+    }
+    .actions {
+      margin-top: 16px;
+      display: flex;
+      gap: 12px;
+    }
+    button {
+      padding: 8px 16px;
+      font-family: 'Roboto', sans-serif;
+      font-size: 12px;
+      cursor: pointer;
+      border: none;
+      border-radius: 4px;
+    }
+    .save-btn { background: #4c7faf; color: #fff; }
+    .clear-btn { background: #797b7c; color: #fff; }
+    .note {
+      margin-top: 8px;
+      color: #666;
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <h1>Checklist de Resposta a Incidentes</h1>
+
+    <p>Esta etapa tem como objetivo registrar de forma estruturada todas as fases durante o incidente. Esse processo garante que os pontos fortes sejam reconhecidos, as falhas sejam corrigidas e que o conhecimento adquirido seja incorporado ao plano de resposta. A documentação deve incluir tanto aspectos técnicos quanto organizacionais, servindo como referência para futuras ocorrências e como base para a melhoria contínua da segurança da informação.</p>
+
+    <h2>1. Contenção e Preservação</h2>
+    <table>
+      <tr><th>Etapa</th><th>Descrição</th></tr>
+      <tr><td class="etapa">1.0 Início</td><td><label><input type="checkbox" id="chk-1-0"> Disparar o processo de resposta ao incidente conforme playbook</label></td></tr>
+      <tr><td class="etapa">1.1 Alerta de comprometimento de servidor</td><td><label><input type="checkbox" id="chk-1-1"> Registrar o recebimento do alerta e identificar o servidor comprometido</label></td></tr>
+      <tr><td class="etapa">1.2 Isolamento lógico imediato</td><td><label><input type="checkbox" id="chk-1-2"> Desconectar o servidor da rede para evitar propagação</label></td></tr>
+      <tr><td class="etapa">1.3 Captura da memória RAM</td><td><label><input type="checkbox" id="chk-1-3"> Preservar evidências voláteis e identificar possíveis malwares</label></td></tr>
+      <tr><td class="etapa">1.4 Monitoramento de conexões</td><td><label><input type="checkbox" id="chk-1-4"> Observar tentativas de comunicações suspeitas</label></td></tr>
+      <tr><td class="etapa">1.5 Registro de sessões</td><td><label><input type="checkbox" id="chk-1-5"> Ativar auditoria para capturar comandos e atividades executadas</label></td></tr>
+    </table>
+
+    <h2>2. Checklist de Análise e Decisão</h2>
+    <table>
+      <tr><th>Etapa</th><th>Descrição</th></tr>
+      <tr><td class="etapa"><span class="critico-numero">2.1</span> Avaliar o custo do bloqueio vs. dano do malware</td><td><label><input type="checkbox" id="chk-2-1"> Análise de impacto antes de qualquer decisão operacional</label></td></tr>
+      <tr><td class="etapa"><span class="critico-numero">2.2</span> Risco de propagação imediata?</td><td><label><input type="checkbox" id="chk-2-2"> Avaliar se o artefato representa ameaça à rede interna</label></td></tr>
+
+      <tr><td colspan="2" class="condicional">Se NÃO houver risco de propagação</td></tr>
+      <tr><td class="etapa">2.2 (a) Manter o servidor offline</td><td><label><input type="checkbox" id="chk-2-2a"> Decisão de manter o servidor isolado, sem bloqueio total</label></td></tr>
+      <tr><td class="etapa">2.2 (b) Não bloquear servidor</td><td><label><input type="checkbox" id="chk-2-2b"> Manter apenas isolamento lógico preventivo</label></td></tr>
+
+      <tr><td colspan="2" class="condicional">Se SIM houver risco de propagação</td></tr>
+      <tr><td class="etapa">2.2 (c) Bloquear/Filtrar servidor</td><td><label><input type="checkbox" id="chk-2-2c"> Impedir movimentação lateral e proteger a rede</label></td></tr>
+
+      <tr><td class="etapa">2.3 Contatar responsável pelo servidor</td><td><label><input type="checkbox" id="chk-2-3"> Alinhar ações com o responsável técnico ou de negócio</label></td></tr>
+      <tr><td class="etapa">2.4 Aguardar resolução e feedback da DSInf</td><td><label><input type="checkbox" id="chk-2-4"> Confirmar decisão final da Diretoria de Segurança da Informação</label></td></tr>
+    </table>
+
+    <h2>3. Erradicação e Recuperação</h2>
+    <table>
+      <tr><th>Etapa</th><th>Descrição</th></tr>
+      <tr><td class="etapa"><span class="critico-numero">3.1</span> Incidente resolvido?</td><td><label><input type="checkbox" id="chk-3-1"> Confirmar se o incidente foi tratado e não há artefatos maliciosos</label></td></tr>
+
+      <tr><td colspan="2" class="condicional">Se NÃO resolvido</td></tr>
+      <tr><td class="etapa">3.2 Reforçar alertas no SIEM/EDR</td><td><label><input type="checkbox" id="chk-3-2"> Ajustar sistemas de monitoramento para priorizar alarmes relacionados</label></td></tr>
+      <tr><td class="etapa">3.3 Auditoria de logs</td><td><label><input type="checkbox" id="chk-3-3"> Revisar registros para identificar ações suspeitas ou não autorizadas</label></td></tr>
+      <tr><td class="etapa">3.4 Correlação de eventos</td><td><label><input type="checkbox" id="chk-3-4"> Relacionar eventos para identificar causa raiz e conexões</label></td></tr>
+
+      <tr><td colspan="2" class="condicional">Se SIM resolvido</td></tr>
+      <tr><td class="etapa"><span class="critico-numero">3.5</span> Reintegrar ou manter isolado?</td><td><label><input type="checkbox" id="chk-3-5"> Avaliar se o servidor pode voltar ao ambiente</label></td></tr>
+      <tr><td class="etapa">3.5 (a) Se manter isolado</td><td><label><input type="checkbox" id="chk-3-5a"> Documentar justificativa, formalizar decisão e manter fora de produção</label></td></tr>
+      <tr><td class="etapa">3.5 (b) Se reintegrar</td><td><label><input type="checkbox" id="chk-3-5b"> Restaurar acesso e confirmar funcionamento seguro</label></td></tr>
+      <tr><td class="etapa">3.6 Fim</td><td><label><input type="checkbox" id="chk-3-6"> Encerrar o processo de resposta ao incidente</label></td></tr>
+    </table>
+
+    <h2>4. Recuperação e Conformidade</h2>
+    <table>
+      <tr><th>Etapa</th><th>Descrição</th></tr>
+      <tr><td class="etapa"><span class="critico-numero">4.1</span> Validar reintegração segura</td><td><label><input type="checkbox" id="chk-4-1"> Confirmar que o servidor reintegrado está limpo, estável e sem riscos residuais</label></td></tr>
+      <tr><td class="etapa">4.2 Checar conformidade técnica e regulatória</td><td><label><input type="checkbox" id="chk-4-2"> Verificar atendimento às políticas internas e normas externas (LGPD, ISO, etc.)</label></td></tr>
+    </table>
+
+    <h2>5. Atividades pós-incidente</h2>
+    <table>
+      <tr><th>Etapa</th><th>Descrição</th></tr>
+      <tr><td class="etapa">5.1 Documentar lições aprendidas</td><td><label><input type="checkbox" id="chk-5-1"> Registrar o que funcionou, o que falhou e oportunidades de melhoria</label></td></tr>
+      <tr><td class="etapa">5.2 Atualizar playbooks e fluxogramas</td><td><label><input type="checkbox" id="chk-5-2"> Incorporar ajustes no processo com base no incidente tratado</label></td></tr>
+      <tr><td class="etapa">5.3 Treinar equipe com base no caso real</td><td><label><input type="checkbox" id="chk-5-3"> Usar o incidente como exercício de capacitação e reforço de procedimentos</label></td></tr>
+      <tr><td class="etapa">5.4 Reportar métricas e indicadores</td><td><label><input type="checkbox" id="chk-5-4"> Informar tempo de resposta, impacto, reintegração e ações corretivas</label></td></tr>
+    </table>
+
+    <div class="actions">
+      <button class="save-btn" id="save-btn">Salvar</button>
+      <button class="clear-btn" id="clear-btn">Limpar</button>
+    </div>
+
+    <p class="note">Nota: Os itens com 🔴 são marcadores de fase crítica e estão disponíveis na Seção 5. Fluxograma de Decisão.</p>
+  </div>
+
+  <script>
+    // Salvar estado individual ao mudar
+    function saveState(id, checked) {
+      localStorage.setItem(id, checked ? "true" : "false");
+    }
+
+    // Restaurar estado ao carregar
+    function restoreState() {
+      document.querySelectorAll("input[type=checkbox]").forEach(cb => {
+        const saved = localStorage.getItem(cb.id);
+        cb.checked = (saved === "true");
+      });
+    }
+
+    // Salvar todos (força persistência explícita)
+    function saveAll() {
+      document.querySelectorAll("input[type=checkbox]").forEach(cb => {
+        saveState(cb.id, cb.checked);
+      });
+      alert("Checklist salvo no navegador.");
+    }
+
+    // Limpar todos
+    function clearAll() {
+      document.querySelectorAll("input[type=checkbox]").forEach(cb => {
+        cb.checked = false;
+        localStorage.removeItem(cb.id);
+      });
+      alert("Checklist limpo.");
+    }
+
+    // Inicialização
+    document.addEventListener("DOMContentLoaded", () => {
+      restoreState();
+      document.querySelectorAll("input[type=checkbox]").forEach(cb => {
+        cb.addEventListener("change", () => saveState(cb.id, cb.checked));
+      });
+      document.getElementById("save-btn").addEventListener("click", saveAll);
+      document.getElementById("clear-btn").addEventListener("click", clearAll);
+    });
+  </script>
+</body>
+</html>
