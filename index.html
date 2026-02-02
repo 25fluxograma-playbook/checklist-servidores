@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
   <meta charset="utf-8">
-  <title>Checklist de Resposta a Incidentes</title>
+  <title>Checklist de Resposta a Incidentes - NIST</title>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
   <style>
     body {
@@ -26,11 +26,11 @@
       margin-bottom: 12px;
     }
     h1 {
-      font-size: 15px;    /* título um pouco menor */
+      font-size: 15px;
       padding: 8px 14px;
     }
     h2 {
-      font-size: 14px;    /* subtítulo menor */
+      font-size: 14px;
       padding: 7px 12px;
     }
     table {
@@ -49,21 +49,23 @@
       font-weight: 700;
     }
     td.etapa {
-      background: #e4e3e3;  /* cinza mais claro */
-      font-weight: 700;      /* negrito */
+      background: #e4e3e3;
+      font-weight: 700;
+      width: 250px;
     }
     label {
       display: flex;
       align-items: center;
       gap: 8px;
+      cursor: pointer;
     }
     input[type=checkbox] {
-      width: 18px;     /* caixa maior */
-      height: 18px;    /* caixa maior */
+      width: 18px;
+      height: 18px;
     }
     .critico-numero::before {
       content: "🔴";
-      font-size: 0.8em;   /* bolinha menor */
+      font-size: 0.8em;
       margin-right: 4px;
       vertical-align: middle;
     }
@@ -100,65 +102,70 @@
 
     <p>Esta etapa tem como objetivo registrar de forma estruturada todas as fases durante o incidente. Esse processo garante que os pontos fortes sejam reconhecidos, as falhas sejam corrigidas e que o conhecimento adquirido seja incorporado ao plano de resposta. A documentação deve incluir tanto aspectos técnicos quanto organizacionais, servindo como referência para futuras ocorrências e como base para a melhoria contínua da segurança da informação.</p>
 
-    <h2>1. Contenção e Preservação</h2>
+    <h2>1. Preparação</h2>
     <table>
       <tr><th>Etapa</th><th>Descrição</th></tr>
-      <tr><td class="etapa">1.0 Início</td><td><label><input type="checkbox" id="chk-1-0"> Disparar o processo de resposta ao incidente conforme playbook</label></td></tr>
-      <tr><td class="etapa">1.1 Alerta de comprometimento de servidor</td><td><label><input type="checkbox" id="chk-1-1"> Registrar o recebimento do alerta e identificar o servidor comprometido</label></td></tr>
-      <tr><td class="etapa">1.2 Isolamento lógico imediato</td><td><label><input type="checkbox" id="chk-1-2"> Desconectar o servidor da rede para evitar propagação</label></td></tr>
-      <tr><td class="etapa">1.3 Captura da memória RAM</td><td><label><input type="checkbox" id="chk-1-3"> Preservar evidências voláteis e identificar possíveis malwares</label></td></tr>
-      <tr><td class="etapa">1.4 Monitoramento de conexões</td><td><label><input type="checkbox" id="chk-1-4"> Observar tentativas de comunicações suspeitas</label></td></tr>
-      <tr><td class="etapa">1.5 Registro de sessões</td><td><label><input type="checkbox" id="chk-1-5"> Ativar auditoria para capturar comandos e atividades executadas</label></td></tr>
+      <tr><td class="etapa">1.1 Inventário de servidores</td><td><label><input type="checkbox" id="chk-1-1"> Garantir lista atualizada de ativos e responsáveis</label></td></tr>
+      <tr><td class="etapa">1.2 Monitoramento ativo SIEM/EDR</td><td><label><input type="checkbox" id="chk-1-2"> Validar se os sensores estão coletando logs corretamente</label></td></tr>
+      <tr><td class="etapa">1.3 Políticas de backup</td><td><label><input type="checkbox" id="chk-1-3"> Confirmar existência de cópias de segurança íntegras</label></td></tr>
+      <tr><td class="etapa">1.4 Playbooks de resposta</td><td><label><input type="checkbox" id="chk-1-4"> Verificar roteiro técnico para o incidente específico</label></td></tr>
+      <tr><td class="etapa">1.5 Contatos definidos</td><td><label><input type="checkbox" id="chk-1-5"> Validar canais de comunicação com equipes envolvidas</label></td></tr>
     </table>
 
-    <h2>2. Checklist de Análise e Decisão</h2>
+    <h2>2. Detecção e Análise</h2>
     <table>
       <tr><th>Etapa</th><th>Descrição</th></tr>
-      <tr><td class="etapa"><span class="critico-numero">2.1</span> Avaliar o custo do bloqueio vs. dano do malware</td><td><label><input type="checkbox" id="chk-2-1"> Análise de impacto antes de qualquer decisão operacional</label></td></tr>
-      <tr><td class="etapa"><span class="critico-numero">2.2</span> Risco de propagação imediata?</td><td><label><input type="checkbox" id="chk-2-2"> Avaliar se o artefato representa ameaça à rede interna</label></td></tr>
-
-      <tr><td colspan="2" class="condicional">Se NÃO houver risco de propagação</td></tr>
-      <tr><td class="etapa">2.2 (a) Manter o servidor offline</td><td><label><input type="checkbox" id="chk-2-2a"> Decisão de manter o servidor isolado, sem bloqueio total</label></td></tr>
-      <tr><td class="etapa">2.2 (b) Não bloquear servidor</td><td><label><input type="checkbox" id="chk-2-2b"> Manter apenas isolamento lógico preventivo</label></td></tr>
-
-      <tr><td colspan="2" class="condicional">Se SIM houver risco de propagação</td></tr>
-      <tr><td class="etapa">2.2 (c) Bloquear/Filtrar servidor</td><td><label><input type="checkbox" id="chk-2-2c"> Impedir movimentação lateral e proteger a rede</label></td></tr>
-
-      <tr><td class="etapa">2.3 Contatar responsável pelo servidor</td><td><label><input type="checkbox" id="chk-2-3"> Alinhar ações com o responsável técnico ou de negócio</label></td></tr>
-      <tr><td class="etapa">2.4 Aguardar resolução e feedback da DSInf</td><td><label><input type="checkbox" id="chk-2-4"> Confirmar decisão final da Diretoria de Segurança da Informação</label></td></tr>
+      <tr><td class="etapa">2.1 Alerta detectado</td><td><label><input type="checkbox" id="chk-2-1"> Registro oficial da detecção do alerta de segurança</label></td></tr>
+      <tr><td class="etapa">2.2 Coleta inicial</td><td><label><input type="checkbox" id="chk-2-2"> Reunir evidências preliminares do comprometimento</label></td></tr>
+      <tr><td class="etapa">2.3 Análise de logs</td><td><label><input type="checkbox" id="chk-2-3"> Analisar eventos para entender a natureza da ameaça</label></td></tr>
+      <tr><td class="etapa"><span class="critico-numero">2.4</span> Incidente confirmado?</td><td><label><input type="checkbox" id="chk-2-4"> Validar se é um incidente real ou Falso Positivo (2.5)</label></td></tr>
+      <tr><td class="etapa">2.6 Classificar severidade</td><td><label><input type="checkbox" id="chk-2-6"> Definir o nível de impacto (Baixo, Médio, Alto, Crítico)</label></td></tr>
+      <tr><td class="etapa">2.7 Notificar equipe/DSInf</td><td><label><input type="checkbox" id="chk-2-7"> Acionar formalmente os responsáveis pela resolução</label></td></tr>
     </table>
 
-    <h2>3. Erradicação e Recuperação</h2>
+    <h2>3. Contenção</h2>
     <table>
       <tr><th>Etapa</th><th>Descrição</th></tr>
-      <tr><td class="etapa"><span class="critico-numero">3.1</span> Incidente resolvido?</td><td><label><input type="checkbox" id="chk-3-1"> Confirmar se o incidente foi tratado e não há artefatos maliciosos</label></td></tr>
-
-      <tr><td colspan="2" class="condicional">Se NÃO resolvido</td></tr>
-      <tr><td class="etapa">3.2 Reforçar alertas no SIEM/EDR</td><td><label><input type="checkbox" id="chk-3-2"> Ajustar sistemas de monitoramento para priorizar alarmes relacionados</label></td></tr>
-      <tr><td class="etapa">3.3 Auditoria de logs</td><td><label><input type="checkbox" id="chk-3-3"> Revisar registros para identificar ações suspeitas ou não autorizadas</label></td></tr>
-      <tr><td class="etapa">3.4 Correlação de eventos</td><td><label><input type="checkbox" id="chk-3-4"> Relacionar eventos para identificar causa raiz e conexões</label></td></tr>
-
-      <tr><td colspan="2" class="condicional">Se SIM resolvido</td></tr>
-      <tr><td class="etapa"><span class="critico-numero">3.5</span> Reintegrar ou manter isolado?</td><td><label><input type="checkbox" id="chk-3-5"> Avaliar se o servidor pode voltar ao ambiente</label></td></tr>
-      <tr><td class="etapa">3.5 (a) Se manter isolado</td><td><label><input type="checkbox" id="chk-3-5a"> Documentar justificativa, formalizar decisão e manter fora de produção</label></td></tr>
-      <tr><td class="etapa">3.5 (b) Se reintegrar</td><td><label><input type="checkbox" id="chk-3-5b"> Restaurar acesso e confirmar funcionamento seguro</label></td></tr>
-      <tr><td class="etapa">3.6 Fim</td><td><label><input type="checkbox" id="chk-3-6"> Encerrar o processo de resposta ao incidente</label></td></tr>
+      <tr><td class="etapa"><span class="critico-numero">3.1</span> Servidor crítico?</td><td><label><input type="checkbox" id="chk-3-1"> Avaliar criticidade para o negócio</label></td></tr>
+      <tr><td colspan="2" class="condicional">Se SIM (Crítico)</td></tr>
+      <tr><td class="etapa">3.2 Isolar servidor</td><td><label><input type="checkbox" id="chk-3-2"> Desconectar o servidor da rede imediatamente</label></td></tr>
+      <tr><td colspan="2" class="condicional">Se NÃO (Não Crítico)</td></tr>
+      <tr><td class="etapa">3.3 Limitar acessos</td><td><label><input type="checkbox" id="chk-3-3"> Restringir comunicações suspeitas sem isolamento total</label></td></tr>
+      <tr><td colspan="2" class="condicional">Ações Comuns</td></tr>
+      <tr><td class="etapa">3.4 Bloquear contas</td><td><label><input type="checkbox" id="chk-3-4"> Suspender credenciais comprometidas</label></td></tr>
+      <tr><td class="etapa">3.5 Desativar serviços</td><td><label><input type="checkbox" id="chk-3-5"> Parar processos afetados pela ameaça</label></td></tr>
+      <tr><td class="etapa">3.6 Preservar forense</td><td><label><input type="checkbox" id="chk-3-6"> Garantir integridade de discos e memória para investigação</label></td></tr>
+      <tr><td class="etapa"><span class="critico-numero">3.7</span> Contenção eficaz?</td><td><label><input type="checkbox" id="chk-3-7"> Se NÃO: Reavaliar e ampliar isolamento (3.8)</label></td></tr>
     </table>
 
-    <h2>4. Recuperação e Conformidade</h2>
+    <h2>4. Erradicação</h2>
     <table>
       <tr><th>Etapa</th><th>Descrição</th></tr>
-      <tr><td class="etapa"><span class="critico-numero">4.1</span> Validar reintegração segura</td><td><label><input type="checkbox" id="chk-4-1"> Confirmar que o servidor reintegrado está limpo, estável e sem riscos residuais</label></td></tr>
-      <tr><td class="etapa">4.2 Checar conformidade técnica e regulatória</td><td><label><input type="checkbox" id="chk-4-2"> Verificar atendimento às políticas internas e normas externas (LGPD, ISO, etc.)</label></td></tr>
+      <tr><td class="etapa">4.1 Identificar causa raiz</td><td><label><input type="checkbox" id="chk-4-1"> Descobrir o vetor de entrada da ameaça</label></td></tr>
+      <tr><td class="etapa">4.2 Remover malwares</td><td><label><input type="checkbox" id="chk-4-2"> Eliminar artefatos, backdoors e persistências</label></td></tr>
+      <tr><td class="etapa">4.3 Aplicar patches</td><td><label><input type="checkbox" id="chk-4-3"> Corrigir as vulnerabilidades exploradas</label></td></tr>
+      <tr><td class="etapa">4.4 Revisar permissões</td><td><label><input type="checkbox" id="chk-4-4"> Ajustar níveis de acesso e privilégios</label></td></tr>
+      <tr><td class="etapa">4.5 Trocar credenciais</td><td><label><input type="checkbox" id="chk-4-5"> Resetar senhas administrativas e de serviços</label></td></tr>
     </table>
 
-    <h2>5. Atividades pós-incidente</h2>
+    <h2>5. Recuperação</h2>
     <table>
       <tr><th>Etapa</th><th>Descrição</th></tr>
-      <tr><td class="etapa">5.1 Documentar lições aprendidas</td><td><label><input type="checkbox" id="chk-5-1"> Registrar o que funcionou, o que falhou e oportunidades de melhoria</label></td></tr>
-      <tr><td class="etapa">5.2 Atualizar playbooks e fluxogramas</td><td><label><input type="checkbox" id="chk-5-2"> Incorporar ajustes no processo com base no incidente tratado</label></td></tr>
-      <tr><td class="etapa">5.3 Treinar equipe com base no caso real</td><td><label><input type="checkbox" id="chk-5-3"> Usar o incidente como exercício de capacitação e reforço de procedimentos</label></td></tr>
-      <tr><td class="etapa">5.4 Reportar métricas e indicadores</td><td><label><input type="checkbox" id="chk-5-4"> Informar tempo de resposta, impacto, reintegração e ações corretivas</label></td></tr>
+      <tr><td class="etapa">5.1 Restaurar serviços</td><td><label><input type="checkbox" id="chk-5-1"> Reestabelecer as funções do servidor afetado</label></td></tr>
+      <tr><td class="etapa">5.2 Restaurar backups</td><td><label><input type="checkbox" id="chk-5-2"> Utilizar cópias de segurança confiáveis (clean backups)</label></td></tr>
+      <tr><td class="etapa">5.3 Monitoramento reforçado</td><td><label><input type="checkbox" id="chk-5-3"> Observar comportamento anômalo pós-restauração</label></td></tr>
+      <tr><td class="etapa"><span class="critico-numero">5.4</span> Sistema estável?</td><td><label><input type="checkbox" id="chk-5-4"> Validar se o sistema opera sem riscos (Se não: 5.5)</label></td></tr>
+      <tr><td class="etapa">5.6 Reintegrar ao ambiente</td><td><label><input type="checkbox" id="chk-5-6"> Retorno total à produção</label></td></tr>
+    </table>
+
+    <h2>6. Pós-Incidente</h2>
+    <table>
+      <tr><th>Etapa</th><th>Descrição</th></tr>
+      <tr><td class="etapa">6.1 Documentar incidente</td><td><label><input type="checkbox" id="chk-6-1"> Registro completo da cronologia e ações tomadas</label></td></tr>
+      <tr><td class="etapa">6.2 Atualizar playbooks</td><td><label><input type="checkbox" id="chk-6-2"> Ajustar roteiros com base nas falhas encontradas</label></td></tr>
+      <tr><td class="etapa">6.3 Revisar controles</td><td><label><input type="checkbox" id="chk-6-3"> Implementar novas camadas de defesa se necessário</label></td></tr>
+      <tr><td class="etapa">6.4 Treinar equipe</td><td><label><input type="checkbox" id="chk-6-4"> Disseminar conhecimento adquirido para o time</label></td></tr>
+      <tr><td class="etapa">6.5 Relatório executivo</td><td><label><input type="checkbox" id="chk-6-5"> Criar documento de resumo para a alta gestão</label></td></tr>
     </table>
 
     <div class="actions">
@@ -166,16 +173,14 @@
       <button class="clear-btn" id="clear-btn">Limpar</button>
     </div>
 
-    <p class="note">Nota: Os itens com 🔴 são marcadores de fase crítica e estão disponíveis na Seção 5. Fluxograma de Decisão.</p>
+    <p class="note">Nota: Itens marcados com 🔴 indicam pontos de decisão crítica no fluxo operacional.</p>
   </div>
 
   <script>
-    // Salvar estado individual ao mudar
     function saveState(id, checked) {
       localStorage.setItem(id, checked ? "true" : "false");
     }
 
-    // Restaurar estado ao carregar
     function restoreState() {
       document.querySelectorAll("input[type=checkbox]").forEach(cb => {
         const saved = localStorage.getItem(cb.id);
@@ -183,24 +188,22 @@
       });
     }
 
-    // Salvar todos (força persistência explícita)
     function saveAll() {
       document.querySelectorAll("input[type=checkbox]").forEach(cb => {
         saveState(cb.id, cb.checked);
       });
-      alert("Checklist salvo no navegador.");
+      alert("Checklist salvo localmente.");
     }
 
-    // Limpar todos
     function clearAll() {
-      document.querySelectorAll("input[type=checkbox]").forEach(cb => {
-        cb.checked = false;
-        localStorage.removeItem(cb.id);
-      });
-      alert("Checklist limpo.");
+      if(confirm("Deseja realmente limpar todo o checklist?")) {
+        document.querySelectorAll("input[type=checkbox]").forEach(cb => {
+          cb.checked = false;
+          localStorage.removeItem(cb.id);
+        });
+      }
     }
 
-    // Inicialização
     document.addEventListener("DOMContentLoaded", () => {
       restoreState();
       document.querySelectorAll("input[type=checkbox]").forEach(cb => {
